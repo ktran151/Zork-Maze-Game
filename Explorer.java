@@ -1,6 +1,7 @@
 import java.util.Scanner;
 import java.util.Arrays;
-
+import java.io.File;
+import java.io.FileNotFoundException;
 
 public class Explorer {
 
@@ -52,10 +53,37 @@ public class Explorer {
 
       return result;
    }
+   /*
+    * prompt and read string from user to get file, then tokenize the ints 
+    *
+    */
+   public static int [][] readGrid(String filename){
+      int size = 0;
+
+      try {
+         Scanner intScanner = new Scanner(new File(filename));
+         if (intScanner.hasNext()){
+            size = Integer.parseInt(intScanner.nextLine());
+         }
+         intScanner.close();
+      }
+      catch(FileNotFoundException ex){
+         System.out.println(("ERROR: File " + filename + "not found! "));
+      }
+      
+      return new int[size][size];
+   }
 
    public static void main(String[] args) {
-      boolean[] direction = exits(0, 0, 0);
-      System.out.println(Arrays.toString(direction));
+      
+      int[][] printThis = readGrid("map33.txt");
+      for (int i = 0; i < 6; i++){
+         for(int j = 0; j < 6; j++){
+            System.out.print(printThis[j][i] + ",");
+
+         }
+         System.out.println();
+      }
       
    }
 }
