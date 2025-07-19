@@ -1,5 +1,5 @@
 import java.util.Scanner;
-import java.util.Arrays;
+//import java.util.Arrays;
 import java.io.File;
 import java.io.FileNotFoundException;
 
@@ -54,36 +54,48 @@ public class Explorer {
       return result;
    }
    /*
-    * prompt and read string from user to get file, then tokenize the ints 
-    *
+    * prompt and read string from user to get file, then tokenize the ints
+    * to a 2D array given the format of the text file contains the size of the 
+    * map first, and then the contents of the map.
     */
    public static int [][] readGrid(String filename){
       int size = 0;
-
+      int[][] freshMap = {};
+      
       try {
          Scanner intScanner = new Scanner(new File(filename));
-         if (intScanner.hasNext()){
+         intScanner.useDelimiter(",");
+         while (intScanner.hasNext()){
+            
+         }
+         boolean firstLoop = true;
+         if (firstLoop){
             size = Integer.parseInt(intScanner.nextLine());
+            firstLoop = false;
+            freshMap = new int[size][size];
+         } else {
+            for (int i = 0; i < size; i++){
+               for(int j = 0; j < size; j++){
+                  freshMap[i][j] = Integer.parseInt(intScanner.next());
+               }
+            }
          }
          intScanner.close();
       }
       catch(FileNotFoundException ex){
          System.out.println(("ERROR: File " + filename + "not found! "));
       }
-      
-      return new int[size][size];
+
+      return freshMap;
    }
 
    public static void main(String[] args) {
-      
       int[][] printThis = readGrid("map33.txt");
       for (int i = 0; i < 6; i++){
          for(int j = 0; j < 6; j++){
-            System.out.print(printThis[j][i] + ",");
-
+            System.out.print(printThis[i][j] + ",");
          }
-         System.out.println();
+      System.out.println();
       }
-      
    }
 }
